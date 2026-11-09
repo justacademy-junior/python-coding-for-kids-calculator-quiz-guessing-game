@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Python Coding for Kids: Build a Calculator, Quiz and Number Guessing Program</title>
+<meta name="description" content="Play three mini Python projects, a calculator, a quiz and a number guessing game, then see how kids can start Python coding with simple ideas and friendly guidance.">
+<meta name="keywords" content="python coding for kids, python projects for beginners, simple python projects, python for beginners, learn python from scratch, python calculator, python quiz, number guessing game">
+<meta name="theme-color" content="#2f6bff">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Python Coding for Kids: Calculator, Quiz and Number Guessing Program">
+<meta property="og:description" content="Play three mini Python projects right in your browser and discover how children can start coding.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%8D%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "What age can a child start Python coding?", "acceptedAnswer": {"@type": "Answer", "text": "Most children are ready between 8 and 10, once they can read comfortably and type with some ease. Younger children can start with block coding and move to Python later."}},
+    {"@type": "Question", "name": "Do kids need to be good at maths to learn Python?", "acceptedAnswer": {"@type": "Answer", "text": "No. Everyday number sense is enough. Coding often builds maths confidence because numbers suddenly have a purpose."}},
+    {"@type": "Question", "name": "Can my child learn Python online from home?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. With a laptop, a steady internet connection and a patient guide, children can learn Python online from anywhere."}},
+    {"@type": "Question", "name": "What should my child build after these three projects?", "acceptedAnswer": {"@type": "Answer", "text": "Good next ideas include a rock paper scissors game, a unit converter, a story generator or a simple to do list."}}
+  ]
+}
+</script>
+<style>
+:root{
+  --blue:#2f6bff;
+  --ink:#14286b;
+  --sky:#e4edff;
+  --red:#ff4d5e;
+  --green:#1fbf6b;
+  --pink:#ffd6e5;
+  --white:#ffffff;
+  --shadow:0 6px 0 var(--ink);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:86px}
+body{margin:0;font-family:'Nunito',system-ui,-apple-system,'Segoe UI',sans-serif;font-size:17px;line-height:1.65;color:var(--ink);background:var(--white);-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:'Lilita One','Trebuchet MS',system-ui,sans-serif;font-weight:400;line-height:1.1;margin:0}
+p{margin:0}
+a{color:inherit}
+img,svg{max-width:100%}
+.wrap{width:min(1160px,92%);margin-inline:auto}
+:focus-visible{outline:4px solid var(--red);outline-offset:3px;border-radius:10px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;padding:.8rem 1.35rem;border:3px solid var(--ink);border-radius:16px;background:var(--white);color:var(--ink);font:800 1rem 'Nunito',system-ui,sans-serif;text-decoration:none;cursor:pointer;box-shadow:0 5px 0 var(--ink);transition:transform .12s ease,box-shadow .12s ease}
+.btn:hover{transform:translateY(-2px);box-shadow:0 7px 0 var(--ink)}
+.btn:active{transform:translateY(4px);box-shadow:0 1px 0 var(--ink)}
+.btn.red{background:var(--red);color:var(--white)}
+.btn.blue{background:var(--blue);color:var(--white)}
+.btn.green{background:var(--green);color:var(--white)}
+.btn.small{padding:.5rem .95rem;font-size:.95rem;border-radius:12px;box-shadow:0 4px 0 var(--ink)}
+
+/* header */
+.site-header{position:sticky;top:0;z-index:60;background:var(--white);border-bottom:3px solid var(--ink)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:72px}
+.brand{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+.brand-mark{width:46px;height:46px;border:3px solid var(--ink);border-radius:14px;background:var(--green);display:grid;place-items:center;box-shadow:0 4px 0 var(--ink);transform:rotate(-6deg)}
+.brand-name{font-family:'Lilita One',sans-serif;font-size:1.35rem;line-height:1}
+.brand-name small{display:block;font-family:'Nunito',sans-serif;font-weight:700;font-size:.78rem;opacity:.75}
+.nav{display:flex;align-items:center;gap:.3rem}
+.nav a{padding:.45rem .85rem;border-radius:999px;text-decoration:none;font-weight:800}
+.nav a:hover{background:var(--pink)}
+.menu-btn{display:none}
+
+/* hero */
+.hero{background:var(--pink);background-image:radial-gradient(rgba(47,107,255,.18) 2px,transparent 2.5px);background-size:26px 26px;border-bottom:3px solid var(--ink);padding:3.2rem 0 4.2rem;position:relative}
+.hero-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:2.6rem;align-items:center}
+.hero h1{font-size:clamp(2.2rem,5.2vw,3.9rem);margin-bottom:1.1rem}
+.chip{display:inline-block;padding:.02em .28em;border:3px solid var(--ink);border-radius:14px;box-shadow:0 4px 0 var(--ink);color:var(--white);transform:rotate(-2deg);margin-inline:.05em;animation:pop .6s cubic-bezier(.3,1.6,.5,1) both}
+.chip.c1{background:var(--blue)}
+.chip.c2{background:var(--red);transform:rotate(1.5deg);animation-delay:.12s}
+.chip.c3{background:var(--green);transform:rotate(-1deg);animation-delay:.24s}
+@keyframes pop{from{transform:scale(.3) rotate(-12deg);opacity:0}to{opacity:1}}
+.lead{font-size:1.15rem;max-width:34rem;margin-bottom:1.5rem}
+.cta-row{display:flex;flex-wrap:wrap;gap:.9rem;margin-bottom:1.6rem}
+
+/* Pip */
+.pip-row{display:flex;align-items:flex-end;gap:.6rem}
+.pip{width:150px;flex:none;cursor:pointer;background:none;border:0;padding:0}
+.bubble{position:relative;background:var(--white);border:3px solid var(--ink);border-radius:20px;padding:.8rem 1.05rem;font-weight:800;max-width:21rem;box-shadow:0 5px 0 var(--ink);margin-bottom:1.6rem}
+.bubble::before{content:"";position:absolute;left:-14px;bottom:18px;width:22px;height:22px;background:var(--white);border-left:3px solid var(--ink);border-bottom:3px solid var(--ink);transform:rotate(45deg)}
+
+/* console */
+.console{position:relative;background:var(--blue);border:3px solid var(--ink);border-radius:36px;box-shadow:0 10px 0 var(--ink);padding:1rem 1rem 1.2rem}
+.console-top{display:flex;align-items:center;gap:.5rem;padding:.2rem .6rem .8rem;color:var(--white);font-weight:800}
+.light{width:14px;height:14px;border-radius:50%;border:2px solid var(--ink)}
+.light.r{background:var(--red)}.light.w{background:var(--white)}.light.g{background:var(--green)}
+.console-top span.t{margin-left:auto;font-family:'Lilita One',sans-serif;font-size:1.05rem;letter-spacing:.02em}
+.tabs{display:flex;gap:.5rem;padding:0 .3rem}
+.tab{flex:1;padding:.65rem .5rem .55rem;border:3px solid var(--ink);border-bottom:0;border-radius:18px 18px 0 0;font:800 1rem 'Nunito',sans-serif;color:var(--ink);background:var(--sky);cursor:pointer}
+.tab[aria-selected="true"]{background:var(--white);position:relative;top:3px;padding-bottom:.8rem}
+.tab[data-tab="calc"][aria-selected="true"]{box-shadow:inset 0 6px 0 var(--blue)}
+.tab[data-tab="quiz"][aria-selected="true"]{box-shadow:inset 0 6px 0 var(--red)}
+.tab[data-tab="guess"][aria-selected="true"]{box-shadow:inset 0 6px 0 var(--green)}
+.screen{background:var(--white);border:3px solid var(--ink);border-radius:24px;padding:1.3rem;min-height:370px}
+.screen h3{font-size:1.5rem;margin-bottom:.3rem}
+.screen .hint{font-size:.95rem;opacity:.85;margin-bottom:1rem}
+.field-row{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;margin-bottom:.9rem}
+input[type="number"]{width:100%;min-width:0;padding:.7rem .8rem;border:3px solid var(--ink);border-radius:14px;font:800 1.2rem 'Nunito',sans-serif;color:var(--ink);background:var(--sky)}
+.field-row .grow{flex:1;min-width:110px}
+.ops{display:flex;gap:.5rem;margin-bottom:1rem}
+.op{width:52px;height:52px;border:3px solid var(--ink);border-radius:16px;background:var(--white);font:800 1.5rem 'Nunito',sans-serif;color:var(--ink);cursor:pointer;box-shadow:0 4px 0 var(--ink)}
+.op[aria-pressed="true"]{background:var(--blue);color:var(--white);transform:translateY(2px);box-shadow:0 2px 0 var(--ink)}
+.answer{background:var(--pink);border:3px dashed var(--ink);border-radius:18px;padding:.8rem 1rem;font-family:'Lilita One',sans-serif;font-size:1.9rem;min-height:68px;margin:.4rem 0 .8rem;display:flex;align-items:center}
+.answer.oops{font-family:'Nunito',sans-serif;font-size:1.05rem;font-weight:800;background:#fff0f2;border-color:var(--red)}
+.tape{display:grid;gap:.3rem;font-weight:700;font-size:.95rem}
+.tape div{background:var(--sky);border-radius:10px;padding:.2rem .7rem}
+.progress{display:flex;gap:.4rem;margin-bottom:.9rem}
+.dot{width:100%;height:10px;border-radius:99px;background:var(--sky);border:2px solid var(--ink)}
+.dot.ok{background:var(--green)}.dot.no{background:var(--red)}.dot.now{background:var(--blue)}
+.q-text{font-family:'Lilita One',sans-serif;font-size:1.45rem;margin-bottom:1rem;line-height:1.2}
+.opts{display:grid;gap:.6rem}
+.opt{text-align:left;padding:.75rem 1rem;border:3px solid var(--ink);border-radius:16px;background:var(--white);font:800 1.05rem 'Nunito',sans-serif;color:var(--ink);cursor:pointer;box-shadow:0 4px 0 var(--ink)}
+.opt:hover:not(:disabled){background:var(--sky)}
+.opt.right{background:var(--green);color:var(--white)}
+.opt.wrong{background:var(--red);color:var(--white)}
+.opt:disabled{cursor:default}
+.feedback{min-height:1.7rem;font-weight:800;margin-top:.8rem}
+.hearts{display:flex;gap:.3rem;font-size:1.5rem;margin-bottom:.6rem;color:var(--red)}
+.hearts .lost{opacity:.22;filter:grayscale(1)}
+.tiles{display:grid;grid-template-columns:repeat(10,1fr);gap:.3rem;margin:.9rem 0}
+.tile{aspect-ratio:1;border:2px solid var(--ink);border-radius:9px;display:grid;place-items:center;font-weight:800;font-size:.9rem;background:var(--sky);transition:background .2s,opacity .2s}
+.tile.out{opacity:.25;background:#fff;text-decoration:line-through}
+.tile.win{background:var(--green);color:var(--white);transform:scale(1.12)}
+.tile.reveal{background:var(--red);color:var(--white)}
+.msg{font-weight:800;min-height:1.7rem}
+.confetti{position:absolute;left:50%;top:42%;width:12px;height:12px;border-radius:3px;pointer-events:none;z-index:5}
+
+/* sections */
+section{padding:4.6rem 0}
+.sec-head{max-width:40rem;margin-bottom:2.2rem}
+.sec-head h2{font-size:clamp(1.9rem,4vw,2.8rem);margin-bottom:.7rem}
+.sec-head p{font-size:1.1rem}
+
+/* project cards */
+.projects{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem}
+.card{background:var(--white);border:3px solid var(--ink);border-radius:30px;padding:1.6rem;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:.9rem}
+.card:nth-child(1){border-radius:30px 30px 30px 8px}
+.card:nth-child(2){border-radius:30px 8px 30px 30px}
+.card:nth-child(3){border-radius:8px 30px 30px 30px}
+.badge{width:62px;height:62px;border:3px solid var(--ink);border-radius:20px;display:grid;place-items:center;font-size:1.9rem;box-shadow:0 4px 0 var(--ink)}
+.card.calc .badge{background:var(--blue);color:#fff}
+.card.quiz .badge{background:var(--red);color:#fff}
+.card.guess .badge{background:var(--green);color:#fff}
+.card h3{font-size:1.55rem}
+.learns{font-weight:800;background:var(--pink);border-radius:12px;padding:.4rem .8rem;display:inline-block;align-self:flex-start}
+.card .btn{margin-top:auto;align-self:flex-start}
+
+/* flip cards */
+.ideas{background:var(--sky);border-block:3px solid var(--ink)}
+.flip-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1.1rem}
+.flip{perspective:900px;background:none;border:0;padding:0;cursor:pointer;height:230px;font:inherit;color:inherit;text-align:center}
+.flip-in{position:relative;width:100%;height:100%;transition:transform .55s cubic-bezier(.3,1.3,.5,1);transform-style:preserve-3d}
+.flip[aria-pressed="true"] .flip-in{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:3px solid var(--ink);border-radius:24px;padding:1rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.6rem;box-shadow:0 5px 0 var(--ink)}
+.face.front{background:var(--white)}
+.face.back{background:var(--ink);color:var(--white);transform:rotateY(180deg);font-weight:700;font-size:.98rem}
+.face .emoji{font-size:2.4rem}
+.face .name{font-family:'Lilita One',sans-serif;font-size:1.35rem}
+.face .tap{font-size:.82rem;opacity:.7;font-weight:700}
+.flip:nth-child(1) .front{background:#fff0f2}
+.flip:nth-child(2) .front{background:#e9fbf1}
+.flip:nth-child(3) .front{background:var(--sky)}
+.flip:nth-child(4) .front{background:#fff0f6}
+.flip:nth-child(5) .front{background:#fff}
+
+/* path */
+.path{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:1.4rem;position:relative;counter-reset:s}
+.path::before{content:"";position:absolute;left:8%;right:8%;top:34px;height:0;border-top:5px dotted var(--blue);z-index:0}
+.path li{position:relative;z-index:1;text-align:center}
+.path .stop{width:68px;height:68px;margin:0 auto 1rem;border:3px solid var(--ink);border-radius:50%;display:grid;place-items:center;font-family:'Lilita One',sans-serif;font-size:1.6rem;color:#fff;box-shadow:0 4px 0 var(--ink)}
+.path li:nth-child(1) .stop{background:var(--red)}
+.path li:nth-child(2) .stop{background:var(--blue)}
+.path li:nth-child(3) .stop{background:var(--green)}
+.path li:nth-child(4) .stop{background:var(--ink)}
+.path h3{font-size:1.3rem;margin-bottom:.4rem}
+.path p{font-size:.98rem;margin-bottom:.7rem}
+
+/* link cards */
+.links{background:var(--pink);border-block:3px solid var(--ink)}
+.link-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem}
+.lcard{display:flex;flex-direction:column;gap:.45rem;padding:1.3rem 1.4rem;background:var(--white);border:3px solid var(--ink);border-radius:22px;text-decoration:none;box-shadow:0 6px 0 var(--ink);transition:transform .12s ease,box-shadow .12s ease}
+.lcard:hover{transform:translateY(-4px) rotate(-.6deg);box-shadow:0 10px 0 var(--ink)}
+.lcard:active{transform:translateY(3px);box-shadow:0 2px 0 var(--ink)}
+.lcard .ico{font-size:1.9rem}
+.lcard strong{font-family:'Lilita One',sans-serif;font-weight:400;font-size:1.3rem}
+.lcard span.d{font-size:.98rem}
+.lcard .go{margin-top:auto;font-weight:800;color:var(--blue)}
+.lcard.hot{background:var(--red);color:#fff}
+.lcard.hot .go{color:#fff}
+
+/* faq */
+.faq{max-width:48rem;display:grid;gap:.9rem}
+details{border:3px solid var(--ink);border-radius:20px;background:var(--white);box-shadow:0 5px 0 var(--ink);padding:0}
+summary{cursor:pointer;list-style:none;padding:1rem 1.3rem;font-family:'Lilita One',sans-serif;font-size:1.2rem;display:flex;justify-content:space-between;gap:1rem}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:1.6rem;line-height:1;color:var(--red)}
+details[open] summary::after{content:"−"}
+details p{padding:0 1.3rem 1.2rem}
+
+/* banner + footer */
+.banner{background:var(--blue);color:#fff;border-top:3px solid var(--ink);padding:3.6rem 0;text-align:center}
+.banner h2{font-size:clamp(1.8rem,4vw,2.7rem);margin-bottom:.8rem}
+.banner p{max-width:36rem;margin:0 auto 1.5rem;font-size:1.1rem}
+.footer{background:var(--ink);color:#fff;padding:3rem 0 2rem}
+.foot-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:2rem}
+.footer h3{font-size:1.2rem;margin-bottom:.7rem;color:var(--pink)}
+.footer a{display:block;padding:.18rem 0;text-decoration:none;opacity:.92}
+.footer a:hover{text-decoration:underline;opacity:1}
+.footer .fine{margin-top:2rem;padding-top:1.2rem;border-top:2px solid rgba(255,255,255,.2);font-size:.92rem;opacity:.8}
+
+/* responsive */
+@media (max-width:980px){
+  .hero-grid{grid-template-columns:1fr}
+  .projects{grid-template-columns:1fr}
+  .flip-grid{grid-template-columns:repeat(2,1fr)}
+  .path{grid-template-columns:1fr 1fr}
+  .path::before{display:none}
+  .link-grid{grid-template-columns:1fr 1fr}
+  .foot-grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:760px){
+  .menu-btn{display:inline-flex}
+  .nav{position:absolute;left:0;right:0;top:72px;background:#fff;border-bottom:3px solid var(--ink);flex-direction:column;align-items:stretch;padding:.8rem 4%;display:none}
+  .nav.open{display:flex}
+  .nav a{padding:.7rem 1rem}
+  .header-cta{display:none}
+}
+@media (max-width:560px){
+  body{font-size:16px}
+  section{padding:3.2rem 0}
+  .flip-grid,.link-grid,.path,.foot-grid{grid-template-columns:1fr}
+  .flip{height:190px}
+  .pip{width:110px}
+  .screen{padding:1rem}
+  .tabs .tab{font-size:.92rem}
+  .tiles{grid-template-columns:repeat(10,1fr);gap:.2rem}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap bar">
+    <a class="brand" href="#top" aria-label="Python Playground home">
+      <span class="brand-mark" aria-hidden="true">
+        <svg width="28" height="28" viewBox="0 0 28 28"><circle cx="14" cy="14" r="11" fill="#fff"/><circle cx="10.5" cy="12" r="2.2" fill="#14286b"/><circle cx="17.5" cy="12" r="2.2" fill="#14286b"/><path d="M9.5 17c2.6 3 6.4 3 9 0" stroke="#14286b" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+      </span>
+      <span class="brand-name">Python Playground<small>Coding for kids</small></span>
+    </a>
+    <button class="btn small menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="#play">Play</a>
+      <a href="#projects">Projects</a>
+      <a href="#ideas">Ideas</a>
+      <a href="#path">Path</a>
+      <a href="#links">Links</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn small red header-cta" href="https://justacademyjunior.com/free-demo" target="_blank" rel="noopener">Free demo</a>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero" aria-labelledby="hero-title" style="padding-bottom:4.2rem">
+  <div class="wrap hero-grid">
+    <div>
+      <h1 id="hero-title">Python coding for kids: build a <span class="chip c1">calculator</span>, a <span class="chip c2">quiz</span> and a <span class="chip c3">guessing game</span></h1>
+      <p class="lead">Python reads almost like plain English, which makes it a friendly first language. Play the three mini projects on this page, then see how your child can build them for real.</p>
+      <div class="cta-row">
+        <a class="btn red" href="https://justacademyjunior.com/free-demo" target="_blank" rel="noopener">Book a free demo</a>
+        <a class="btn blue" href="https://justacademyjunior.com/courses/python-programming" target="_blank" rel="noopener">See the Python course</a>
+      </div>
+      <div class="pip-row">
+        <button class="pip" id="pip" aria-label="Pip the Python snake. Press for a tip.">
+          <svg viewBox="0 0 220 210" role="img" aria-hidden="true">
+            <path d="M34 188 C6 150 34 120 84 128 S150 160 160 104" fill="none" stroke="#14286b" stroke-width="38" stroke-linecap="round"/>
+            <path d="M34 188 C6 150 34 120 84 128 S150 160 160 104" fill="none" stroke="#1fbf6b" stroke-width="30" stroke-linecap="round"/>
+            <ellipse cx="52" cy="150" rx="7" ry="10" fill="#ffd6e5" transform="rotate(-30 52 150)"/>
+            <ellipse cx="105" cy="140" rx="7" ry="10" fill="#ffd6e5" transform="rotate(30 105 140)"/>
+            <ellipse cx="150" cy="140" rx="7" ry="10" fill="#ffd6e5" transform="rotate(-20 150 140)"/>
+            <circle cx="158" cy="70" r="44" fill="#14286b"/>
+            <circle cx="158" cy="70" r="40" fill="#1fbf6b"/>
+            <circle cx="141" cy="62" r="13" fill="#fff" stroke="#14286b" stroke-width="3"/>
+            <circle cx="176" cy="62" r="13" fill="#fff" stroke="#14286b" stroke-width="3"/>
+            <circle class="pupil" cx="141" cy="62" r="6" fill="#14286b"/>
+            <circle class="pupil" cx="176" cy="62" r="6" fill="#14286b"/>
+            <circle cx="130" cy="86" r="7" fill="#ffd6e5"/>
+            <circle cx="188" cy="86" r="7" fill="#ffd6e5"/>
+            <path d="M144 88 Q159 102 174 88" stroke="#14286b" stroke-width="4" fill="none" stroke-linecap="round"/>
+            <path d="M159 98 v14 m0 0 l-5 6 m5 -6 l5 6" stroke="#ff4d5e" stroke-width="4" fill="none" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <div class="bubble" id="pipSay" aria-live="polite">Hi, I am Pip! Pick a game on the right and press play.</div>
+      </div>
+    </div>
+
+    <div class="console" id="play" aria-label="Three playable mini projects">
+      <div class="console-top"><span class="light r"></span><span class="light w"></span><span class="light g"></span><span class="t">Mini project arcade</span></div>
+      <div class="tabs" role="tablist" aria-label="Choose a project">
+        <button class="tab" role="tab" id="tab-calc" data-tab="calc" aria-selected="true" aria-controls="panel-calc">Calculator</button>
+        <button class="tab" role="tab" id="tab-quiz" data-tab="quiz" aria-selected="false" aria-controls="panel-quiz" tabindex="-1">Quiz</button>
+        <button class="tab" role="tab" id="tab-guess" data-tab="guess" aria-selected="false" aria-controls="panel-guess" tabindex="-1">Guess</button>
+      </div>
+
+      <div class="screen">
+        <!-- Calculator -->
+        <div role="tabpanel" id="panel-calc" data-panel="calc" aria-labelledby="tab-calc">
+          <h3>Super Calculator</h3>
+          <p class="hint">Type two numbers, pick a sign and press the big button.</p>
+          <div class="field-row">
+            <div class="grow"><label class="sr-only" for="numA">First number</label><input type="number" id="numA" inputmode="decimal" step="any" placeholder="First" value="12"></div>
+            <div class="grow"><label class="sr-only" for="numB">Second number</label><input type="number" id="numB" inputmode="decimal" step="any" placeholder="Second" value="4"></div>
+          </div>
+          <div class="ops" role="group" aria-label="Choose a sign">
+            <button class="op" data-op="+" aria-pressed="true" aria-label="plus">+</button>
+            <button class="op" data-op="-" aria-pressed="false" aria-label="minus">&minus;</button>
+            <button class="op" data-op="*" aria-pressed="false" aria-label="times">&times;</button>
+            <button class="op" data-op="/" aria-pressed="false" aria-label="divide">&divide;</button>
+          </div>
+          <button class="btn blue" id="calcGo">Calculate</button>
+          <div class="answer" id="calcOut" aria-live="polite">Your answer shows here</div>
+          <div class="tape" id="tape" aria-label="Recent sums"></div>
+        </div>
+
+        <!-- Quiz -->
+        <div role="tabpanel" id="panel-quiz" data-panel="quiz" aria-labelledby="tab-quiz" hidden>
+          <h3>Fun Quiz</h3>
+          <p class="hint">Five questions. Tap the right answer.</p>
+          <div class="progress" id="progress" aria-hidden="true"></div>
+          <div id="quizBody"></div>
+        </div>
+
+        <!-- Guess -->
+        <div role="tabpanel" id="panel-guess" data-panel="guess" aria-labelledby="tab-guess" hidden>
+          <h3>Number Guessing Game</h3>
+          <p class="hint">I picked a secret number from 1 to 20. You have six tries.</p>
+          <div class="hearts" id="hearts" aria-live="polite"></div>
+          <div class="field-row">
+            <div class="grow"><label class="sr-only" for="guessIn">Your guess</label><input type="number" id="guessIn" min="1" max="20" inputmode="numeric" placeholder="Your guess"></div>
+            <button class="btn green" id="guessGo">Guess</button>
+          </div>
+          <div class="msg" id="guessMsg" aria-live="polite">Tip: start with the middle number.</div>
+          <div class="tiles" id="tiles" aria-hidden="true"></div>
+          <button class="btn small" id="guessAgain" hidden>Play again</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects" aria-labelledby="projects-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="projects-title">Three projects, three superpowers</h2>
+      <p>Each project is small enough to finish in one or two sittings, and each one adds a new coding idea. Press a button to play it again in the arcade.</p>
+    </div>
+    <div class="projects">
+      <article class="card calc">
+        <div class="badge" aria-hidden="true">+</div>
+        <h3>The calculator</h3>
+        <p>Two numbers go in and one answer comes out. The program asks for the numbers and a sign, picks the right little helper and shows the result. Kids learn that a big job is just small helpers working together.</p>
+        <span class="learns">Learns: input, decisions, functions</span>
+        <button class="btn small blue" data-jump="calc">Play the calculator</button>
+      </article>
+      <article class="card quiz">
+        <div class="badge" aria-hidden="true">?</div>
+        <h3>The quiz</h3>
+        <p>Your computer becomes the quiz host. Questions sit in a list like a stack of cards, and a loop asks them one by one, checks every reply and keeps the score. Kids choose the topic, so it always feels personal.</p>
+        <span class="learns">Learns: lists, loops, scores</span>
+        <button class="btn small red" data-jump="quiz">Play the quiz</button>
+      </article>
+      <article class="card guess">
+        <div class="badge" aria-hidden="true">#</div>
+        <h3>The number guessing game</h3>
+        <p>The computer hides a number between 1 and 20. Every hint cuts the choices in half, which is a real computer science trick called binary search. The game is different every time it runs.</p>
+        <span class="learns">Learns: random numbers, loops, smart guessing</span>
+        <button class="btn small green" data-jump="guess">Play the guessing game</button>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="ideas" id="ideas" aria-labelledby="ideas-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="ideas-title">Five tiny ideas behind every program</h2>
+      <p>These python basics for beginners show up in almost every project. Tap a card to flip it.</p>
+    </div>
+    <div class="flip-grid">
+      <button class="flip" aria-pressed="false"><span class="flip-in"><span class="face front"><span class="emoji" aria-hidden="true">💬</span><span class="name">Message</span><span class="tap">Tap to flip</span></span><span class="face back">Printing makes the computer say something on the screen. It is usually the very first thing a child writes.</span></span></button>
+      <button class="flip" aria-pressed="false"><span class="flip-in"><span class="face front"><span class="emoji" aria-hidden="true">📦</span><span class="name">Memory box</span><span class="tap">Tap to flip</span></span><span class="face back">A variable is a labelled box that remembers a value, like your score or your name.</span></span></button>
+      <button class="flip" aria-pressed="false"><span class="flip-in"><span class="face front"><span class="emoji" aria-hidden="true">🙋</span><span class="name">Question</span><span class="tap">Tap to flip</span></span><span class="face back">Input lets a program ask you something and wait for your answer, so it feels like a conversation.</span></span></button>
+      <button class="flip" aria-pressed="false"><span class="flip-in"><span class="face front"><span class="emoji" aria-hidden="true">🔀</span><span class="name">Fork in the road</span><span class="tap">Tap to flip</span></span><span class="face back">A decision picks a path. If the answer is right, cheer. Otherwise, give a hint.</span></span></button>
+      <button class="flip" aria-pressed="false"><span class="flip-in"><span class="face front"><span class="emoji" aria-hidden="true">🎠</span><span class="name">Merry go round</span><span class="tap">Tap to flip</span></span><span class="face back">A loop repeats actions again and again, so nobody has to write the same line ten times.</span></span></button>
+    </div>
+  </div>
+</section>
+
+<section id="path" aria-labelledby="path-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="path-title">Your child's coding path</h2>
+      <p>Here is a friendly order to follow, from the very first try to bigger challenges.</p>
+    </div>
+    <ol class="path">
+      <li>
+        <div class="stop" aria-hidden="true">1</div>
+        <h3>Try a live class</h3>
+        <p>See how Python feels with a teacher and other young learners.</p>
+        <a class="btn small red" href="https://justacademyjunior.com/free-demo" target="_blank" rel="noopener">Free demo</a>
+      </li>
+      <li>
+        <div class="stop" aria-hidden="true">2</div>
+        <h3>Pick a program</h3>
+        <p>Browse the programs and choose the one that fits your child's age.</p>
+        <a class="btn small blue" href="https://justacademyjunior.com/programs" target="_blank" rel="noopener">View programs</a>
+      </li>
+      <li>
+        <div class="stop" aria-hidden="true">3</div>
+        <h3>Build real projects</h3>
+        <p>Follow the Python course from basics to finished projects.</p>
+        <a class="btn small green" href="https://justacademyjunior.com/courses/python-programming" target="_blank" rel="noopener">Python course</a>
+      </li>
+      <li>
+        <div class="stop" aria-hidden="true">4</div>
+        <h3>Level up</h3>
+        <p>Older teens in Mumbai can explore a deeper Python path.</p>
+        <a class="btn small" href="https://www.justacademy.co/course-detail/mumbai/python-training-in-mumbai" target="_blank" rel="noopener">Python in Mumbai</a>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="links" id="links" aria-labelledby="links-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="links-title">Everything in one place</h2>
+      <p>Every card below is a link. Press anywhere on a card to open the page.</p>
+    </div>
+    <div class="link-grid">
+      <a class="lcard hot" href="https://justacademyjunior.com/free-demo" target="_blank" rel="noopener"><span class="ico" aria-hidden="true">🎈</span><strong>Free demo class</strong><span class="d">See a live Python class and meet the teachers.</span><span class="go">Book the demo</span></a>
+      <a class="lcard" href="https://justacademyjunior.com/programs" target="_blank" rel="noopener"><span class="ico" aria-hidden="true">🧩</span><strong>Kids coding programs</strong><span class="d">Explore every program built for young learners.</span><span class="go">See all programs</span></a>
+      <a class="lcard" href="https://justacademyjunior.com/courses/python-programming" target="_blank" rel="noopener"><span class="ico" aria-hidden="true">🐍</span><strong>Python programming course</strong><span class="d">A clear path from first line to finished projects.</span><span class="go">Open the course</span></a>
+      <a class="lcard" href="https://www.justacademy.co/course-detail/mumbai/python-training-in-mumbai" target="_blank" rel="noopener"><span class="ico" aria-hidden="true">🏙️</span><strong>Python training in Mumbai</strong><span class="d">A deeper route for teens and adults in Mumbai.</span><span class="go">View the training</span></a>
+      <a class="lcard" href="https://justacademyjunior.com/blog/python-coding-for-kids-how-to-create-a-calculator-quiz-and-number-guessing-program" target="_blank" rel="noopener"><span class="ico" aria-hidden="true">📖</span><strong>Read the full guide</strong><span class="d">How to create a calculator, quiz and number guessing program.</span><span class="go">Read the blog</span></a>
+      <a class="lcard" href="https://justacademyjunior.com/blog/python-for-kids-a-beginners-guide-to-learning-coding-and-building-fun-projects" target="_blank" rel="noopener"><span class="ico" aria-hidden="true">🚀</span><strong>Python for kids beginner guide</strong><span class="d">Learn coding and build fun projects from day one.</span><span class="go">Read the guide</span></a>
+      <a class="lcard" href="https://justacademyjunior.com/contact" target="_blank" rel="noopener"><span class="ico" aria-hidden="true">💌</span><strong>Contact and enroll</strong><span class="d">Ask a question or enroll your child today.</span><span class="go">Say hello</span></a>
+    </div>
+  </div>
+</section>
+
+<section id="faq" aria-labelledby="faq-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="faq-title">Questions parents ask</h2>
+    </div>
+    <div class="faq">
+      <details>
+        <summary>What age can a child start Python coding?</summary>
+        <p>Most children are ready between 8 and 10, once they can read comfortably and type with some ease. Younger children can start with block coding and move to Python later.</p>
+      </details>
+      <details>
+        <summary>Do kids need to be good at maths?</summary>
+        <p>No. Everyday number sense is enough. Coding often builds maths confidence because numbers suddenly have a purpose.</p>
+      </details>
+      <details>
+        <summary>Can my child learn Python online from home?</summary>
+        <p>Yes. With a laptop, a steady internet connection and a patient guide, children can learn Python online from anywhere. Many beginners start by coding in a browser, so there is nothing to install.</p>
+      </details>
+      <details>
+        <summary>What should my child build after these three projects?</summary>
+        <p>Good next ideas include a rock paper scissors game, a unit converter, a story generator or a simple to do list.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="banner" aria-labelledby="banner-title">
+  <div class="wrap">
+    <h2 id="banner-title">Ready to turn screen time into build time?</h2>
+    <p>Start with a free demo, or write to the team and ask anything about Python coding for kids.</p>
+    <div class="cta-row" style="justify-content:center;margin:0">
+      <a class="btn red" href="https://justacademyjunior.com/free-demo" target="_blank" rel="noopener">Book a free demo</a>
+      <a class="btn" href="https://justacademyjunior.com/contact" target="_blank" rel="noopener">Enroll now</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <h3>Python Playground</h3>
+        <p>A playful landing page for Python coding for kids. Build a calculator, a quiz and a number guessing program, one small win at a time.</p>
+      </div>
+      <div>
+        <h3>Learn</h3>
+        <a href="https://justacademyjunior.com/free-demo" target="_blank" rel="noopener">Free demo class</a>
+        <a href="https://justacademyjunior.com/programs" target="_blank" rel="noopener">Kids coding programs</a>
+        <a href="https://justacademyjunior.com/courses/python-programming" target="_blank" rel="noopener">Python programming course</a>
+        <a href="https://www.justacademy.co/course-detail/mumbai/python-training-in-mumbai" target="_blank" rel="noopener">Python training in Mumbai</a>
+      </div>
+      <div>
+        <h3>Read and connect</h3>
+        <a href="https://justacademyjunior.com/blog/python-coding-for-kids-how-to-create-a-calculator-quiz-and-number-guessing-program" target="_blank" rel="noopener">Calculator, quiz and guessing game guide</a>
+        <a href="https://justacademyjunior.com/blog/python-for-kids-a-beginners-guide-to-learning-coding-and-building-fun-projects" target="_blank" rel="noopener">Python for kids beginner guide</a>
+        <a href="https://justacademyjunior.com/contact" target="_blank" rel="noopener">Contact and enroll</a>
+      </div>
+    </div>
+    <p class="fine">Made with curiosity for young coders. All course, blog and contact links open the official JustAcademy Junior and JustAcademy pages.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var colors = ['#2f6bff', '#ff4d5e', '#1fbf6b', '#ffd6e5', '#ffffff'];
+
+  /* mobile menu */
+  var menuBtn = $('#menuBtn'), nav = $('#nav');
+  menuBtn.addEventListener('click', function () {
+    var open = nav.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', open);
+  });
+  $$('#nav a').forEach(function (a) {
+    a.addEventListener('click', function () { nav.classList.remove('open'); menuBtn.setAttribute('aria-expanded', 'false'); });
+  });
+
+  /* Pip */
+  var bubble = $('#pipSay');
+  function say(t) { bubble.textContent = t; }
+  var tips = [
+    'Python reads almost like English. That is why I love it!',
+    'A bug is not a failure. It is a clue.',
+    'Guess the middle number first. It halves your choices.',
+    'Every program is made of tiny ideas mixed together.',
+    'Change one small thing and see what happens. That is how coders learn.'
+  ];
+  var tipIndex = 0;
+  $('#pip').addEventListener('click', function () { say(tips[tipIndex % tips.length]); tipIndex++; });
+
+  var pupils = $$('.pupil');
+  var baseCenters = pupils.map(function (p) { return { x: +p.getAttribute('cx'), y: +p.getAttribute('cy') }; });
+  document.addEventListener('pointermove', function (e) {
+    var svg = $('#pip svg'), r = svg.getBoundingClientRect();
+    if (!r.width) return;
+    var cx = r.left + r.width * 0.72, cy = r.top + r.height * 0.3;
+    var dx = e.clientX - cx, dy = e.clientY - cy, d = Math.hypot(dx, dy) || 1;
+    var m = Math.min(5, d / 40);
+    pupils.forEach(function (p, i) {
+      p.setAttribute('cx', baseCenters[i].x + (dx / d) * m);
+      p.setAttribute('cy', baseCenters[i].y + (dy / d) * m);
+    });
+  });
+
+  /* confetti */
+  function burst() {
+    if (reduce) return;
+    var host = $('#play');
+    for (var i = 0; i < 36; i++) {
+      var s = document.createElement('span');
+      s.className = 'confetti';
+      s.style.background = colors[i % colors.length];
+      s.style.border = '2px solid #14286b';
+      host.appendChild(s);
+      var dx = (Math.random() - 0.5) * 460, dy = -80 - Math.random() * 260, rot = Math.random() * 720 - 360;
+      var a = s.animate([
+        { transform: 'translate(0,0) rotate(0deg)', opacity: 1 },
+        { transform: 'translate(' + dx + 'px,' + dy + 'px) rotate(' + rot + 'deg)', opacity: 0 }
+      ], { duration: 1000 + Math.random() * 700, easing: 'cubic-bezier(.2,.8,.3,1)' });
+      a.onfinish = (function (el) { return function () { el.remove(); }; })(s);
+    }
+  }
+
+  /* tabs */
+  var tabs = $$('.tab'), panels = $$('[role="tabpanel"]');
+  var tabSay = {
+    calc: 'Calculators teach us that big jobs are small helpers working together.',
+    quiz: 'A quiz is a list of questions and a loop. Ready to beat my score?',
+    guess: 'Guess the middle number first. Every hint cuts the choices in half!'
+  };
+  function showTab(name, focus) {
+    tabs.forEach(function (t) {
+      var on = t.dataset.tab === name;
+      t.setAttribute('aria-selected', on);
+      t.tabIndex = on ? 0 : -1;
+      if (on && focus) t.focus();
+    });
+    panels.forEach(function (p) { p.hidden = p.dataset.panel !== name; });
+    say(tabSay[name]);
+  }
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { showTab(t.dataset.tab); });
+    t.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { e.preventDefault(); showTab(tabs[(i + 1) % tabs.length].dataset.tab, true); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); showTab(tabs[(i + tabs.length - 1) % tabs.length].dataset.tab, true); }
+    });
+  });
+  $$('[data-jump]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      showTab(b.dataset.jump);
+      $('#play').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+    });
+  });
+
+  /* calculator */
+  var op = '+', tape = [];
+  $$('.op').forEach(function (b) {
+    b.addEventListener('click', function () {
+      op = b.dataset.op;
+      $$('.op').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+    });
+  });
+  var symbols = { '+': '+', '-': '\u2212', '*': '\u00d7', '/': '\u00f7' };
+  function calculate() {
+    var a = parseFloat($('#numA').value), b = parseFloat($('#numB').value);
+    var out = $('#calcOut');
+    if (isNaN(a) || isNaN(b)) {
+      out.textContent = 'Type two numbers first.';
+      out.className = 'answer oops';
+      say('I need two numbers to work with.');
+      return;
+    }
+    if (op === '/' && b === 0) {
+      out.textContent = 'Oops, you cannot divide by zero. Try another number!';
+      out.className = 'answer oops';
+      say('Good coders plan for what could go wrong. That is why this message exists.');
+      return;
+    }
+    var r = op === '+' ? a + b : op === '-' ? a - b : op === '*' ? a * b : a / b;
+    r = Math.round(r * 1000) / 1000;
+    out.textContent = r;
+    out.className = 'answer';
+    tape.unshift(a + ' ' + symbols[op] + ' ' + b + ' = ' + r);
+    tape = tape.slice(0, 3);
+    $('#tape').innerHTML = tape.map(function (t) { return '<div>' + t + '</div>'; }).join('');
+    say('Nice sum! The calculator picked the right little helper for that sign.');
+  }
+  $('#calcGo').addEventListener('click', calculate);
+  ['#numA', '#numB'].forEach(function (id) {
+    $(id).addEventListener('keydown', function (e) { if (e.key === 'Enter') calculate(); });
+  });
+
+  /* quiz */
+  var bank = [
+    { q: 'Which planet is called the Red Planet?', a: 'Mars', o: ['Mars', 'Venus', 'Jupiter'] },
+    { q: 'How many days are there in a week?', a: '7', o: ['5', '7', '10'] },
+    { q: 'What is 9 multiplied by 3?', a: '27', o: ['24', '27', '36'] },
+    { q: 'Which animal is called the king of the jungle?', a: 'Lion', o: ['Lion', 'Zebra', 'Panda'] },
+    { q: 'What is the capital of India?', a: 'New Delhi', o: ['Mumbai', 'Kolkata', 'New Delhi'] }
+  ];
+  var order = [], qi = 0, score = 0, results = [];
+  function shuffle(arr) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+  function drawProgress() {
+    $('#progress').innerHTML = order.map(function (_, i) {
+      var c = results[i] === true ? 'ok' : results[i] === false ? 'no' : i === qi ? 'now' : '';
+      return '<span class="dot ' + c + '"></span>';
+    }).join('');
+  }
+  function startQuiz() {
+    order = shuffle(bank); qi = 0; score = 0; results = [];
+    renderQuestion();
+  }
+  function renderQuestion() {
+    var body = $('#quizBody');
+    drawProgress();
+    if (qi >= order.length) {
+      var msg = score === 5 ? 'Perfect score! You are a quiz champion.' : score >= 3 ? 'Great job! Try again for full marks.' : 'Good try! Every round makes you faster.';
+      body.innerHTML = '<div class="answer" style="justify-content:center">' + score + ' out of 5</div><p class="msg">' + msg + '</p><button class="btn red" id="quizAgain">Play again</button>';
+      $('#quizAgain').addEventListener('click', startQuiz);
+      say(score === 5 ? 'Full marks! Programs can cheer for you too.' : 'The score is just a memory box that grew by one each time you were right.');
+      if (score === 5) burst();
+      return;
+    }
+    var item = order[qi];
+    body.innerHTML = '<p class="q-text">' + item.q + '</p><div class="opts"></div><p class="feedback" aria-live="polite"></p>';
+    var box = $('.opts', body);
+    shuffle(item.o).forEach(function (opt) {
+      var b = document.createElement('button');
+      b.className = 'opt';
+      b.textContent = opt;
+      b.addEventListener('click', function () { answer(b, item); });
+      box.appendChild(b);
+    });
+  }
+  function answer(btn, item) {
+    var ok = btn.textContent === item.a;
+    $$('.opt').forEach(function (b) {
+      b.disabled = true;
+      if (b.textContent === item.a) b.classList.add('right');
+    });
+    if (!ok) btn.classList.add('wrong');
+    score += ok ? 1 : 0;
+    results[qi] = ok;
+    $('.feedback').textContent = ok ? 'Correct! One point added.' : 'Not quite. The right answer is ' + item.a + '.';
+    drawProgress();
+    setTimeout(function () { qi++; renderQuestion(); }, reduce ? 900 : 1300);
+  }
+  startQuiz();
+
+  /* guessing game */
+  var secret, tries, over;
+  function drawHearts() {
+    var h = '';
+    for (var i = 0; i < 6; i++) {
+      h += '<span class="' + (i < tries ? '' : 'lost') + '" aria-hidden="true">\u2665</span>';
+    }
+    $('#hearts').innerHTML = h + '<span class="sr-only">' + tries + ' tries left</span>';
+  }
+  function drawTiles() {
+    var t = '';
+    for (var n = 1; n <= 20; n++) t += '<div class="tile" data-n="' + n + '">' + n + '</div>';
+    $('#tiles').innerHTML = t;
+  }
+  function newGame() {
+    secret = 1 + Math.floor(Math.random() * 20);
+    tries = 6; over = false;
+    drawHearts(); drawTiles();
+    $('#guessMsg').textContent = 'Tip: start with the middle number.';
+    $('#guessIn').value = '';
+    $('#guessIn').disabled = false;
+    $('#guessGo').disabled = false;
+    $('#guessAgain').hidden = true;
+  }
+  function guess() {
+    if (over) return;
+    var g = parseInt($('#guessIn').value, 10);
+    var msg = $('#guessMsg');
+    if (isNaN(g) || g < 1 || g > 20) { msg.textContent = 'Type a whole number from 1 to 20.'; return; }
+    if (g === secret) {
+      msg.textContent = 'Brilliant! You found ' + secret + ' with ' + (7 - tries) + ' tries.';
+      $('.tile[data-n="' + secret + '"]').classList.add('win');
+      finish();
+      say('You found it! A loop kept asking until you got it right.');
+      burst();
+      return;
+    }
+    tries--;
+    $$('.tile').forEach(function (t) {
+      var n = +t.dataset.n;
+      if ((g < secret && n <= g) || (g > secret && n >= g)) t.classList.add('out');
+    });
+    drawHearts();
+    if (tries === 0) {
+      msg.textContent = 'Out of tries! The secret number was ' + secret + '.';
+      $('.tile[data-n="' + secret + '"]').classList.add('reveal');
+      finish();
+      say('Out of tries is the message that waits at the end of the loop.');
+    } else {
+      msg.textContent = (g < secret ? 'Too low' : 'Too high') + ', try again.';
+      say('See the faded numbers? Those are choices you ruled out.');
+    }
+    $('#guessIn').value = '';
+    $('#guessIn').focus();
+  }
+  function finish() {
+    over = true;
+    $('#guessIn').disabled = true;
+    $('#guessGo').disabled = true;
+    $('#guessAgain').hidden = false;
+  }
+  $('#guessGo').addEventListener('click', guess);
+  $('#guessIn').addEventListener('keydown', function (e) { if (e.key === 'Enter') guess(); });
+  $('#guessAgain').addEventListener('click', newGame);
+  newGame();
+
+  /* flip cards */
+  $$('.flip').forEach(function (f) {
+    f.addEventListener('click', function () {
+      f.setAttribute('aria-pressed', f.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+    });
+  });
+})();
+</script>
+</body>
+</html>
